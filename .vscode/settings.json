@@ -1,0 +1,10 @@
+{
+    "editor.tabCompletion": "on",
+    "diffEditor.codeLens": true,
+    "editor.formatOnSave":true,
+    "editor.fontSize": 14,
+    "editor.tabSize": 2,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}

@@ -1,0 +1,84 @@
+:root {
+  color-scheme: light dark;
+  /** COLORS */
+  --black: hsla(0, 0%, 2%, 1);
+  --white: hsla(0, 0%, 98%, 1);
+  --gray100: hsla(0, 0%, 10%, 1);
+  --gray200: hsla(0, 0%, 20%, 1);
+  --gray300: hsla(0, 0%, 30%, 1);
+  --gray400: hsla(0, 0%, 40%, 1);
+  --gray500: hsla(0, 0%, 50%, 1);
+  --gray600: hsla(0, 0%, 70%, 1);
+  --gray700: hsla(0, 0%, 80%, 1);
+  --gray800: hsla(0, 0%, 90%, 1);
+
+  --blue: hsla(240, 100%, 60%, 1);
+  --orange: hsla(40, 100%, 60%, 1);
+  --pink: hsla(0, 100%, 80%, 1);
+
+  /** utility colors */
+  --warn: hsla(40, 100%, 50%, 1);
+  --success: hsla(120, 80%, 50%, 1);
+  --error: hsla(0, 80%, 50%, 1);
+
+  /** theme */
+  --primary: hsla(220, 70%, 40%, 1);
+  --primary-hover: hsla(220, 70%, 60%, 1);
+  --secondary: hsla(180, 40%, 40%, 1);
+  --secondary-hover: hsla(180, 40%, 50%, 1);
+  --background: var(--white);
+  --color-light: var(--white);
+  --color-dark: var(--black);
+
+  --radius-small: 0.5rem;
+  --radius-medium: 1rem;
+  --radius-large: 3rem;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+button,
+fieldset,
+input,
+legend,
+select,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 1rem;
+  margin: 0;
+  background-color: var(--background);
+  color: var(--color-dark);
+  border: 1px solid var(--gray400);
+  padding: 0.25rem 1rem;
+}
+
+select {
+  background: url("images/chevron-down.svg") no-repeat center right 0.75rem;
+}
+
+*:disabled,
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
