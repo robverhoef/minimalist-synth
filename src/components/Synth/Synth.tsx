@@ -1,92 +1,119 @@
-import React, { useRef, useState } from "react"
-import * as Tone from "tone"
-import { RefreshCcw } from "react-feather"
-import Keyboard from "./Keyboard"
-import { KeyboardKey } from "./types"
-import Button from "../Button"
-import Knob from "../Knob"
+import React, { useRef, useState, useCallback } from 'react'
+import * as Tone from 'tone'
+import './styles.css'
+import Keyboard from '../Keyboard/index'
+import { KeyboardKey } from '../Keyboard/types'
+import Knob from '../Knob'
 
 export default function Synth() {
-  const [synthType, setSynthType] = useState("FM Synth")
+  const [synthType, setSynthType] = useState('FM Synth')
+  const [_octave, _setOctave] = useState(4)
   const [octave, setOctave] = useState(4)
-  const [started, setStarted] = useState(false)
+  // const [started, setStarted] = useState(false)
   const kbRef = useRef()
+  const [reverbValue, setReverbValue] = useState(0.001)
+
   const synths = {
-    "FM Synth": {
+    'FM Synth': {
       synth: Tone.FMSynth,
-      type: "long",
+      type: 'long',
       poly: true,
       usesNote: true,
     },
-    "AM Synth": {
+    'AM Synth': {
       synth: Tone.AMSynth,
-      type: "long",
+      type: 'long',
       poly: true,
       usesNote: true,
     },
-    "Mono Synth": {
+    'Mono Synth': {
       synth: Tone.MonoSynth,
-      type: "long",
+      type: 'long',
       poly: true,
       usesNote: true,
     },
-    "Duo Synth": {
+    'Duo Synth': {
       synth: Tone.DuoSynth,
-      type: "long",
+      type: 'long',
       poly: true,
       usesNote: true,
     },
-    "Metal Synth": {
+    'Metal Synth': {
       synth: Tone.MetalSynth,
-      type: "short",
+      type: 'short',
       poly: true,
       usesNote: true,
     },
-    "Membrane Synth": {
+    'Membrane Synth': {
       synth: Tone.MembraneSynth,
-      type: "short",
+      type: 'short',
       poly: true,
       usesNote: true,
     },
-    "Noise Synth": {
+    'Noise Synth': {
       synth: Tone.NoiseSynth,
-      type: "short",
+      type: 'short',
       poly: false,
       usesNote: false,
     },
-    "Pluck Synth": {
+    'Pluck Synth': {
       synth: Tone.PluckSynth,
-      type: "short",
+      type: 'short',
       poly: true,
       usesNote: true,
     },
   }
-  var currentSynth = synths[synthType].poly
-    ? new Tone.PolySynth(synths[synthType].synth).toDestination()
-    : new synths[synthType].synth().toDestination()
+
+  const effectsChain = useCallback(() => {
+    console.log('reverbValue', reverbValue)
+    return new Tone.Reverb(reverbValue + 0.001).connect(Tone.getDestination())
+  }, [reverbValue])
+
+  console.log('effectsChain', effectsChain())
+  let currentSynth = synths[synthType].poly
+    ? new Tone.PolySynth(synths[synthType].synth)
+    : new synths[synthType].synth()
+
+  currentSynth.connect(effectsChain())
+  currentSynth.connect(Tone.getDestination())
 
   const onSynthChange = (e) => {
     currentSynth.disconnect()
+    currentSynth.dispose()
     setSynthType(e)
+
+    console.log('Synth Change', e)
+
     if (synths[e].poly) {
-      currentSynth = new Tone.PolySynth(synths[e].synth).toDestination()
+      currentSynth = new Tone.PolySynth(synths[e].synth)
     } else {
-      currentSynth = new Tone[synths[e]].synth().toDestination()
+      currentSynth = new synths[e]()
     }
+    console.log('Synth Change', e, currentSynth)
+    currentSynth.connect(effectsChain())
+
     if (kbRef && kbRef.current) {
       const kb: HTMLDivElement = kbRef.current as HTMLDivElement
       kb.focus()
     }
   }
-  const onOctaveChanged = (o) => {
-    setOctave(o)
+  const onOctaveChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const o: number = parseInt(e.target.value, 10)
+      setOctave(o)
+      if (o > 0 && o < 8) {
+        _setOctave(o)
+      }
+    } catch (_e) {
+      return false
+    }
   }
   const now = Tone.now()
 
   const playNote = (note: string, octave: number) => {
-    if (synths[synthType].type === "short") {
+    if (synths[synthType].type === 'short') {
       if (!synths[synthType].usesNote) {
-        currentSynth.triggerAttackRelease("8n", 0.05)
+        currentSynth.triggerAttackRelease('8n', 0.05)
         return
       }
       nudgeNote(note, octave)
@@ -95,7 +122,7 @@ export default function Synth() {
     currentSynth.triggerAttack(note + octave.toString(), now)
   }
   const stopNote = (note: string, octave: number) => {
-    if (synths[synthType].type === "short") {
+    if (synths[synthType].type === 'short') {
       return
     }
     if (synths[synthType].poly) {
@@ -111,15 +138,15 @@ export default function Synth() {
   const nudgeNote = (note: string, octave: number) => {
     currentSynth.triggerAttackRelease(note + octave.toString(), 1)
   }
-
-  const resetSounds = () => {
-    currentSynth.disconnect()
-    currentSynth.toDestination()
+  const setReverb = (e) => {
+    console.debug('setReverb', e)
+    setReverbValue(e)
   }
+
   return (
     <div
       className="synth"
-      tabIndex={0}
+      tabIndex={-1}
     >
       <div className="controls">
         <div className="controls__control">
@@ -128,6 +155,7 @@ export default function Synth() {
             id="synth-type"
             value={synthType}
             onChange={(evt) => onSynthChange(evt.target.value)}
+            className="lcd"
           >
             {Object.keys(synths).map((s, index) => (
               <option key={`s_${index}`}>{s}</option>
@@ -135,31 +163,38 @@ export default function Synth() {
           </select>
         </div>
         <div className="controls__control">
-          <label htmlFor="octave-slider">Octave</label>
+          <label htmlFor="octave-input">Octave (1-7)</label>
           <input
-            id="octave-slider"
+            className="lcd"
+            id="octave-input"
             type="number"
-            min={2}
+            inputMode="numeric"
+            min={1}
             max={7}
             value={octave}
             step={1}
-            onChange={(e) => onOctaveChanged(parseInt(e.target.value, 10))}
+            pattern="[1-7]{1,1}"
+            onChange={(e) => onOctaveChanged(e)}
+            required
           />
         </div>
         <div className="controls__control">
-          <label>Reverb</label>
-          <Knob />
+          <label htmlFor="reverb">Reverb</label>
+          <Knob
+            id="reverb"
+            minValue={0}
+            maxValue={5}
+            step={0.1}
+            value={0}
+            precision={1}
+            onChange={(e) => {
+              setReverb(e.value)
+            }}
+          />
         </div>
-        <Button
-          round
-          onClick={(_e) => resetSounds()}
-          title="Reset sounds"
-        >
-          <RefreshCcw size={18} />
-        </Button>
       </div>
       <Keyboard
-        octave={octave}
+        octave={_octave}
         kbref={kbRef}
         keyPressed={(e: KeyboardKey) => playNote(e.note, e.octave)}
         keyReleased={(e: KeyboardKey) => {

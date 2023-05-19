@@ -1,38 +1,38 @@
-import Button from "../components/Button/index"
+import Button from '../components/Button/index'
 
 export default {
-  title: "Components/Button",
+  title: 'Components/Button',
   component: Button,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     large: {
-      description: "A larger button",
-      control: "boolean",
+      description: 'A larger button',
+      control: 'boolean',
     },
     small: {
-      description: "A smaller button",
-      control: "boolean",
+      description: 'A smaller button',
+      control: 'boolean',
     },
     disabled: {
-      description: "Disables this component",
-      control: "boolean",
+      description: 'Disables this component',
+      control: 'boolean',
     },
     primary: {
-      description: "Primary variant",
-      control: "boolean",
+      description: 'Primary variant',
+      control: 'boolean',
     },
     secondary: {
-      description: "Secondary variant, will override primary variant",
-      control: "boolean",
+      description: 'Secondary variant, will override primary variant',
+      control: 'boolean',
     },
     outline: {
-      description: "Bordered variation",
-      control: "boolean",
+      description: 'Bordered variation',
+      control: 'boolean',
     },
     radius: {
-      description: "Border radius",
-      control: "select",
-      options: ["none", "small", "medium", "large", "round"],
+      description: 'Border radius',
+      control: 'select',
+      options: ['none', 'small', 'medium', 'large', 'round'],
     },
   },
   args: {
@@ -40,10 +40,10 @@ export default {
     primary: true,
     secondary: false,
     outline: false,
-    radius: "small",
-    children: "Default button",
+    radius: 'small',
+    children: 'Default button',
     small: false,
-    large: false
+    large: false,
   },
 }
 export const Default = {}

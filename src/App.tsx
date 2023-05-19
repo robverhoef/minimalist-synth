@@ -1,9 +1,9 @@
-import React from "react"
-import Synth from "./components/Synth/Synth"
-import ErrorBoundary from "./components/ErrorBoundary"
-import "./App.css"
+import React from 'react'
+import Synth from './components/Synth/Synth'
+import ErrorBoundary from './components/ErrorBoundary'
+import './App.css'
 
-export function App() {
+export const App = (): JSX.Element => {
   return (
     <main>
       <ErrorBoundary>

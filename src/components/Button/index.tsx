@@ -1,10 +1,10 @@
-import React from "react"
-import cc from "classcat"
-import "../../index.css"
-import "./styles.css"
+import React from 'react'
+import cc from 'classcat'
+import '../../index.css'
+import './styles.css'
 
 interface ButtonProps {
-  onClick?: Function
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void
   round?: boolean
   radius?: string
   primary?: boolean
@@ -32,14 +32,14 @@ export default function Button(props: ButtonProps) {
   } = props
   console.table(props)
   const clss = cc([
-    "button",
+    'button',
     { round: round },
     { button_primary: primary },
     { button_secondary: secondary },
-    { "radius-small": radius === "small" },
-    { "radius-medium": radius === "medium" },
-    { "radius-large": radius === "large" },
-    { "radius-round": radius === "round" },
+    { 'radius-small': radius === 'small' },
+    { 'radius-medium': radius === 'medium' },
+    { 'radius-large': radius === 'large' },
+    { 'radius-round': radius === 'round' },
     { outline: outline },
     { small: small },
     { large: large },

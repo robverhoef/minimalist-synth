@@ -1,18 +1,18 @@
-import Knob from "../components/Knob/index"
+import Knob from '../components/Knob/index'
 
 export default {
-  title: "Components/Knob",
+  title: 'Components/Knob',
   component: Knob,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     disabled: {
-      description: "disable component",
-      control: "boolean",
+      description: 'disable component',
+      control: 'boolean',
     },
     minValue: {
-      description: "minimum value, default: 1",
+      description: 'minimum value, default: 1',
       control: {
-        type: "number",
+        type: 'number',
         min: 0,
         max: 99,
         step: 1,
@@ -20,8 +20,8 @@ export default {
     },
     maxValue: {
       control: {
-        description: "maximum value, default: 10",
-        type: "number",
+        description: 'maximum value, default: 10',
+        type: 'number',
         min: 2,
         max: 100,
         step: 1,
@@ -29,24 +29,24 @@ export default {
     },
     value: {
       control: {
-        type: "number",
+        type: 'number',
         min: 0,
         max: 100,
         step: 1,
       },
     },
     step: {
-      description: "step size, default: 1",
+      description: 'step size, default: 1',
       control: {
-        type: "number",
+        type: 'number',
         min: 0.0001,
         max: 2,
       },
     },
     precision: {
-      description: "number of decimals",
+      description: 'number of decimals',
       control: {
-        type: "number",
+        type: 'number',
         min: 0,
         max: 3,
       },
@@ -58,7 +58,7 @@ export default {
     maxValue: 100,
     value: 50,
     step: 1,
-    precision: 2
+    precision: 2,
   },
 }
 export const Default = {}

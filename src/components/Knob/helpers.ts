@@ -3,7 +3,7 @@ export const valueToAngle = (
   minValue: number,
   maxValue: number
 ): number => {
-  let a = ((v - minValue) * 360) / (maxValue - minValue)
+  const a = ((v - minValue) * 360) / (maxValue - minValue)
   return a
 }
 export const angleToValue = (
@@ -11,6 +11,6 @@ export const angleToValue = (
   minValue: number,
   maxValue: number
 ): number => {
-  let v = minValue + (maxValue - minValue) * (a / 360)
+  const v = minValue + (maxValue - minValue) * (a / 360)
   return v
 }
