@@ -74,7 +74,7 @@ export default function Keyboard(props: KeyboardProps) {
   }
 
   const onKeyClicked = (key: KeyboardKey) => {
-    console.log('clicked', key)
+    // console.log('clicked', key)
     keyClicked(key)
   }
   return (

@@ -65,11 +65,11 @@ export default function Synth() {
   }
 
   const effectsChain = useCallback(() => {
-    console.log('reverbValue', reverbValue)
+    // console.log('reverbValue', reverbValue)
     return new Tone.Reverb(reverbValue + 0.001).connect(Tone.getDestination())
   }, [reverbValue])
 
-  console.log('effectsChain', effectsChain())
+  // console.log('effectsChain', effectsChain())
   let currentSynth = synths[synthType].poly
     ? new Tone.PolySynth(synths[synthType].synth)
     : new synths[synthType].synth()
@@ -82,14 +82,14 @@ export default function Synth() {
     currentSynth.dispose()
     setSynthType(e)
 
-    console.log('Synth Change', e)
+    // console.log('Synth Change', e)
 
     if (synths[e].poly) {
       currentSynth = new Tone.PolySynth(synths[e].synth)
     } else {
       currentSynth = new synths[e]()
     }
-    console.log('Synth Change', e, currentSynth)
+    // console.log('Synth Change', e, currentSynth)
     currentSynth.connect(effectsChain())
 
     if (kbRef && kbRef.current) {
@@ -139,7 +139,7 @@ export default function Synth() {
     currentSynth.triggerAttackRelease(note + octave.toString(), 1)
   }
   const setReverb = (e) => {
-    console.debug('setReverb', e)
+    // console.debug('setReverb', e)
     setReverbValue(e)
   }
 

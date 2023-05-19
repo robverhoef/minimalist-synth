@@ -30,7 +30,7 @@ export default function Button(props: ButtonProps) {
     small,
     large,
   } = props
-  console.table(props)
+
   const clss = cc([
     'button',
     { round: round },

@@ -55,13 +55,13 @@ export default function Knob(props: KnobProps) {
   }
 
   const handleMouseUp = (_event: MouseEvent) => {
-    console.debug('mouseUp')
+    // console.debug('mouseUp')
     document.removeEventListener('mousemove', handleMouseMove)
     document.removeEventListener('mouseup', handleMouseUp)
   }
 
   const handleMouseDown = (event: React.MouseEvent) => {
-    console.debug('mouseDown')
+    // console.debug('mouseDown')
     const { pageX, pageY } = event
     if (!knobRef.current) {
       return

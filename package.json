@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Fooling around with js and audio ",
   "author": "rob verhoef",
-  "license": "MIT",
+  "license": "WTFPL",
   "private": true,
   "homepage": ".",
   "dependencies": {
@@ -66,8 +66,7 @@
     "build-storybook": "storybook build",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "coverage": "vitest run --coverage",
-    "prepare": "husky install"
+    "coverage": "vitest run --coverage"
   },
   "packageManager": "yarn@3.5.1"
 }
